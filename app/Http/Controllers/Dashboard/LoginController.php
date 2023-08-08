@@ -33,7 +33,7 @@ class LoginController extends Controller
     {
         try {
             Auth::logout();
-            return redirect('/dash/login')->with('success', 'logout successfully');
+            return redirect('/admin/login')->with('success', 'logout successfully');
             ;
         } catch (\Throwable $th) {
             return back()->with('danger', 'somthing wrong please try again later');

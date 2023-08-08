@@ -2,15 +2,17 @@
 
 namespace App\DataTables;
 
-use Spatie\Permission\Models\Role;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use App\Models\User;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class RolesDataTable extends DataTable
 {
@@ -24,7 +26,16 @@ class RolesDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->editColumn('action', function ($role) {
-                return '<a href="roles/edit/' . $role->id . '">Edit</a> <a href="roles/delete/' . $role->id . '">Delete</a>';
+                $user_id = Auth::user()->id;
+                $user = User::find($user_id);
+                $actions = " ";
+                if ($user->can('role-edit')) {
+                    $actions .= "<a href='roles/edit/" . $role->id . "'>Edit</a>";
+                }
+                if ($user->can('role-delete')) {
+                    $actions .= ' <a href="roles/delete/' . $role->id . '">Delete</a>';
+                }
+                return $actions;
             })
             ->setRowId('id');
     }

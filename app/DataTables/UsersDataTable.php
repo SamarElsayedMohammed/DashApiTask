@@ -24,7 +24,14 @@ class UsersDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->editColumn('action', function ($user) {
-                return '<a href="users/edit/' . $user->id . '">Edit</a> <a href="users/delete/' . $user->id . '">Delete</a>';
+                $actions = " ";
+                if ($user->can('role-edit')) {
+                    $actions .= "<a href='users/edit/" . $user->id . "'>Edit</a>";
+                }
+                if ($user->can('user-delete')) {
+                    $actions .= ' <a href="users/delete/' . $user->id . '">Delete</a>';
+                }
+                return $actions;
             })
             ->setRowClass(function ($user) {
                 return $user->id % 2 == 0 ? 'alert-success' : 'alert-warning';
