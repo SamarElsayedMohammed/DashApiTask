@@ -22,8 +22,8 @@ use App\Http\Controllers\Dashboard\LoginController;
 */
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::group(['middleware' => 'guest'], function () {
-        Route::post('login', [LoginController::class, 'login'])->name('login');
-        Route::get('login', [LoginController::class, 'index'])->name('get.login');
+        Route::post('/login', [LoginController::class, 'login'])->name('login');
+        Route::get('/login', [LoginController::class, 'index'])->name('get.login');
     });
 
     Route::group(['middleware' => 'auth'], function () {
