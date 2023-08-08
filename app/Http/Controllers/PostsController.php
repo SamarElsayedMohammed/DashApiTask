@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
+// use Yajra\DataTables\DataTables;
+use App\Traits\ResponseDash;
 use Illuminate\Http\Request;
 // use Yajra\DataTables\DataTables;
 use App\Interfaces\PostInterface;
 use App\DataTables\PostsDataTable;
-// use Yajra\DataTables\DataTables;
-use DataTables;
 
 class PostsController extends Controller
 {
+    use ResponseDash;
     protected $postInteface;
+
 
     public function __construct(PostInterface $postInteface)
     {
@@ -24,8 +27,8 @@ class PostsController extends Controller
     }
     public function index(PostsDataTable $dataTable)
     {
-        try{
-        return $dataTable->with($this->postInteface->getAll())->render('dashboard.home');
+        try {
+            return $dataTable->with($this->postInteface->getAll())->render('dashboard.home');
         } catch (\Throwable $th) {
             return $this->error('something go to wrong try later', 'admin.home');
 

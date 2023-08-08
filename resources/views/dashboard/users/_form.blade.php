@@ -19,7 +19,10 @@
     <div class="form-group">
         <select class="form-control" name="roles" id="">
             @foreach ($roles as $role)
-                <option value="{{ $role->name }}"@selected($role->name ==  $userRole->name)>{{ $role->name }}</option>
+                <option value="{{ $role->name }}"
+                    @isset($userRole)
+                    @selected($role->name ==  $userRole->name )@endisset>
+                    {{ $role->name }}</option>
             @endforeach
 
         </select>

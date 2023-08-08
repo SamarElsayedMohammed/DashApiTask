@@ -19,6 +19,9 @@ class PostFactory extends Factory
         return [
             'name' => fake()->sentence,
             'note' => fake()->paragraph,
+            'created_at' => now(),
+            'updated_at' => now(),
+
         ];
     }
 }

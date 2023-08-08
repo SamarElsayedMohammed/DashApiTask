@@ -28,6 +28,7 @@ class UserController extends Controller
     {
         $user = new User;
         $roles = Role::all();
+
         return view('dashboard.users.create', compact('user', 'roles'));
     }
     public function store(UserRequest $request)
@@ -51,7 +52,7 @@ class UserController extends Controller
         if (!($user))
             return redirect()->route('admin.users')
                 ->with('danger', 'User not found');
-        
+
         return view('dashboard.users.edit', compact('user', 'roles', 'userRole'));
     }
 

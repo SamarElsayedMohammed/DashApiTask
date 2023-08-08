@@ -23,6 +23,12 @@ class PostsDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->editColumn('created_at', function (Post $post) {
+                return $post->created_at->diffForHumans();
+            })
+            ->editColumn('updated_at', function (Post $post) {
+                return $post->updated_at->diffForHumans();
+            })
             ->setRowId('id');
     }
 
@@ -69,11 +75,7 @@ class PostsDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::computed('id')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
+            Column::make('id'),
             Column::make('name'),
             Column::make('note'),
             Column::make('created_at'),

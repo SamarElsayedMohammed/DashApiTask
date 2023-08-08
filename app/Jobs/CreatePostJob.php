@@ -31,11 +31,11 @@ class CreatePostJob implements ShouldQueue
      */
     public function handle()
     {
-        $chunkSize = 1; // Number of rows per chunk
-        $data = Post::factory(2)->make();
+        $chunkSize = 25; // Number of rows per chunk
+        $data = Post::factory(200)->make();
         $chunks = array_chunk($data->toArray(), $chunkSize);
         foreach ($chunks as $chunk) {
-            Post::insert($chunk);
+            Post::create($chunk);
         }
 
 
