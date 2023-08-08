@@ -43,7 +43,7 @@
                           <p>
                               Posts
                               <i class="fas fa-angle-left right"></i>
-                              <span class="badge badge-info right">{{App\Models\Post::count()}}</span>
+                              <span class="badge badge-info right">{{ App\Models\Post::count() }}</span>
                           </p>
                       </a>
                       <ul class="nav nav-treeview">
@@ -72,7 +72,7 @@
                           <p>
                               Users
                               <i class="fas fa-angle-left right"></i>
-                              <span class="badge badge-info right">{{App\Models\User::count()}}</span>
+                              <span class="badge badge-info right">{{ App\Models\User::count() }}</span>
                           </p>
                       </a>
                       <ul class="nav nav-treeview">
@@ -84,7 +84,7 @@
                                   </a>
                               </li>
                           @endcan
-                          @can('post-create')
+                          @can('user-create')
                               <li class="nav-item">
                                   <a href="{{ route('admin.users.create') }}" class="nav-link">
                                       <i class="far fa-circle nav-icon"></i>
@@ -101,11 +101,11 @@
                           <p>
                               Roles
                               <i class="fas fa-angle-left right"></i>
-                              <span class="badge badge-info right">{{ Spatie\Permission\Models\Role::count()}}</span>
+                              <span class="badge badge-info right">{{ Spatie\Permission\Models\Role::count() }}</span>
                           </p>
                       </a>
                       <ul class="nav nav-treeview">
-                          @can('users-list')
+                          @can('role-list')
                               <li class="nav-item">
                                   <a href="{{ route('admin.roles.index') }}" class="nav-link">
                                       <i class="far fa-circle nav-icon"></i>
@@ -113,7 +113,7 @@
                                   </a>
                               </li>
                           @endcan
-                          @can('post-create')
+                          @can('role-create')
                               <li class="nav-item">
                                   <a href="{{ route('admin.roles.create') }}" class="nav-link">
                                       <i class="far fa-circle nav-icon"></i>

@@ -3,14 +3,15 @@
 namespace App\DataTables;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Yajra\DataTables\EloquentDataTable;
-use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
+use Yajra\DataTables\Html\Builder as HtmlBuilder;
+use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 
 class UsersDataTable extends DataTable
 {
@@ -25,16 +26,15 @@ class UsersDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->editColumn('action', function ($user) {
                 $actions = " ";
-                if ($user->can('role-edit')) {
+                $loginUserId = Auth::id();
+                $loginUser = User::find($loginUserId);
+                if ($loginUser->can('user-edit')) {
                     $actions .= "<a href='users/edit/" . $user->id . "'>Edit</a>";
                 }
-                if ($user->can('user-delete')) {
+                if ($loginUser->can('user-delete')) {
                     $actions .= ' <a href="users/delete/' . $user->id . '">Delete</a>';
                 }
                 return $actions;
-            })
-            ->setRowClass(function ($user) {
-                return $user->id % 2 == 0 ? 'alert-success' : 'alert-warning';
             })
             ->setRowId('id');
     }
