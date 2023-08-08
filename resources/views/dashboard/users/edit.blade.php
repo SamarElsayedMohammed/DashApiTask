@@ -10,6 +10,7 @@
             <div class="card-body">
                 <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
                     @csrf
+                    <input type="hidden" name="id" value="{{ $user->id }}">
                     @include('dashboard.users._form');
                     <x-dashboard.inputs.form-actions name="update" />
                 </form>
