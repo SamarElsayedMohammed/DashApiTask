@@ -84,7 +84,7 @@ class RoleController extends Controller
     {
         try {
 
-            $this->roleService->UpdateRole(['name'=>$request->input('name')], $id, $request->input('permission'));
+            $this->roleService->UpdateRole(['name' => $request->input('name')], $id, $request->input('permission'));
 
             return $this->success('Role updated successfully', 'admin.roles.index');
         } catch (\Throwable $th) {
