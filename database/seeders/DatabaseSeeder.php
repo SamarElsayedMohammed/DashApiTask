@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // dispatch(new CreatePostJob());
-        Post::factory(200)->create();
+        dispatch(new CreatePostJob());
+
 
     }
 }
